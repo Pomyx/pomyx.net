@@ -1,203 +1,219 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Pomyx - Premium Experience</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pomyx Hub</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-html,body{
-  width:100%;
-  height:100%;
-  overflow-x:hidden;
-  font-family:Arial, Helvetica, sans-serif;
-  background:#050505;
-  color:white;
+html, body {
+  width: 100%;
+  min-height: 100%;
+  background: #030305;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
 }
 
-body{
+.hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  perspective: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scene {
+  position: absolute;
+  inset: -5%;
+  background-image: url("hero-gaming-room.jpg");
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.08);
+  filter: brightness(0.78) contrast(1.15) saturate(1.15);
+  transition: transform 0.12s ease-out;
+}
+
+.depth-overlay {
+  position: absolute;
+  inset: 0;
   background:
-  radial-gradient(circle at 20% 20%, rgba(120,0,255,.15), transparent 30%),
-  radial-gradient(circle at 80% 40%, rgba(255,0,60,.15), transparent 30%),
-  #050505;
+    radial-gradient(circle at center, rgba(255,255,255,0.03), transparent 28%),
+    radial-gradient(circle at 50% 60%, transparent 20%, rgba(0,0,0,0.55) 85%),
+    linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.75));
+  pointer-events: none;
 }
 
-/* HERO */
-.hero{
-  position:relative;
-  height:100vh;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.neon-red,
+.neon-purple {
+  position: absolute;
+  width: 45vw;
+  height: 45vw;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.35;
+  mix-blend-mode: screen;
+  pointer-events: none;
 }
 
-/* BACKGROUND IMAGE */
-.room{
-  position:absolute;
-  inset:-40px;
-  background:url("gaming-room.jpg") center center/cover no-repeat;
-  transform:scale(1.08);
-  transition:transform .2s linear;
-  filter:brightness(.72) contrast(1.1) saturate(1.05);
+.neon-red {
+  background: #ff003c;
+  left: -10%;
+  top: 25%;
+  animation: pulseRed 4s ease-in-out infinite;
 }
 
-/* DARK OVERLAY */
-.overlay{
-  position:absolute;
-  inset:0;
-  background:
-  linear-gradient(to bottom, rgba(0,0,0,.15), rgba(0,0,0,.72)),
-  radial-gradient(circle at center, transparent 20%, rgba(0,0,0,.55) 90%);
+.neon-purple {
+  background: #5b2cff;
+  right: -10%;
+  top: 10%;
+  animation: pulsePurple 5s ease-in-out infinite;
 }
 
-/* RED GLOW */
-.glow-red{
-  position:absolute;
-  width:500px;
-  height:500px;
-  background:rgba(255,0,70,.18);
-  filter:blur(120px);
-  border-radius:50%;
-  left:10%;
-  top:25%;
-  animation:float1 8s ease-in-out infinite;
+.monitor-glow {
+  position: absolute;
+  width: 34vw;
+  height: 18vw;
+  top: 27%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(255,0,60,0.25), transparent 70%);
+  filter: blur(35px);
+  opacity: 0.75;
+  animation: monitorPulse 3s ease-in-out infinite;
+  pointer-events: none;
 }
 
-/* PURPLE GLOW */
-.glow-purple{
-  position:absolute;
-  width:550px;
-  height:550px;
-  background:rgba(80,0,255,.18);
-  filter:blur(120px);
-  border-radius:50%;
-  right:10%;
-  top:20%;
-  animation:float2 10s ease-in-out infinite;
+.content {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  padding: 24px;
+  transform-style: preserve-3d;
 }
 
-/* CONTENT */
-.content{
-  position:relative;
-  z-index:5;
-  text-align:center;
-  max-width:1100px;
-  padding:20px;
+.badge {
+  display: inline-block;
+  padding: 10px 18px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.28);
+  backdrop-filter: blur(14px);
+  border-radius: 999px;
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.78);
 }
 
-.tag{
-  display:inline-block;
-  padding:10px 18px;
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:50px;
-  backdrop-filter:blur(10px);
-  background:rgba(255,255,255,.04);
-  font-size:14px;
-  letter-spacing:2px;
-  margin-bottom:22px;
+h1 {
+  font-size: clamp(54px, 10vw, 140px);
+  line-height: 0.9;
+  letter-spacing: -5px;
+  text-transform: uppercase;
+  text-shadow: 0 0 40px rgba(255,0,60,0.45);
 }
 
-h1{
-  font-size:clamp(48px,9vw,120px);
-  line-height:1;
-  letter-spacing:-3px;
-  font-weight:900;
-  text-transform:uppercase;
+h1 span {
+  background: linear-gradient(90deg, #ffffff, #ff174f, #7a4cff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.gradient{
-  background:linear-gradient(90deg,#ffffff,#ff2c55,#7d4dff);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+p {
+  max-width: 720px;
+  margin: 28px auto 0;
+  font-size: clamp(16px, 2vw, 22px);
+  color: rgba(255,255,255,0.76);
+  line-height: 1.6;
 }
 
-p{
-  margin:24px auto;
-  max-width:720px;
-  font-size:20px;
-  color:rgba(255,255,255,.78);
-  line-height:1.6;
+.buttons {
+  margin-top: 36px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.buttons{
-  margin-top:35px;
-  display:flex;
-  gap:16px;
-  justify-content:center;
-  flex-wrap:wrap;
+button {
+  border: 0;
+  padding: 16px 30px;
+  border-radius: 16px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.25s ease;
 }
 
-.btn{
-  padding:16px 28px;
-  border:none;
-  border-radius:14px;
-  font-size:16px;
-  cursor:pointer;
-  transition:.25s;
+.primary {
+  background: linear-gradient(90deg, #ff003c, #6d35ff);
+  box-shadow: 0 0 40px rgba(255,0,60,0.38);
 }
 
-.primary{
-  background:linear-gradient(90deg,#ff2c55,#7d4dff);
-  color:white;
-  box-shadow:0 10px 35px rgba(255,0,80,.35);
+.secondary {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(14px);
 }
 
-.primary:hover{
-  transform:translateY(-3px) scale(1.03);
+button:hover {
+  transform: translateY(-4px) scale(1.04);
 }
 
-.secondary{
-  background:rgba(255,255,255,.05);
-  color:white;
-  border:1px solid rgba(255,255,255,.12);
-  backdrop-filter:blur(8px);
+.scroll {
+  position: absolute;
+  bottom: 28px;
+  z-index: 5;
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: rgba(255,255,255,0.5);
+  animation: float 2s ease-in-out infinite;
 }
 
-.secondary:hover{
-  background:rgba(255,255,255,.09);
+@keyframes pulseRed {
+  0%, 100% { opacity: 0.25; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(1.08); }
 }
 
-/* SCROLL INDICATOR */
-.scroll{
-  position:absolute;
-  bottom:25px;
-  left:50%;
-  transform:translateX(-50%);
-  font-size:13px;
-  letter-spacing:2px;
-  color:rgba(255,255,255,.55);
-  z-index:5;
+@keyframes pulsePurple {
+  0%, 100% { opacity: 0.22; transform: scale(1); }
+  50% { opacity: 0.42; transform: scale(1.1); }
 }
 
-/* ANIMS */
-@keyframes float1{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-30px);}
+@keyframes monitorPulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.85; }
 }
 
-@keyframes float2{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(25px);}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
-@media(max-width:768px){
-  p{
-    font-size:16px;
+@media (max-width: 768px) {
+  .scene {
+    inset: -12%;
+    transform: scale(1.2);
   }
 
-  .buttons{
-    flex-direction:column;
+  h1 {
+    letter-spacing: -2px;
   }
 
-  .btn{
-    width:100%;
+  .buttons {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
   }
 }
 </style>
@@ -206,44 +222,58 @@ p{
 <body>
 
 <section class="hero">
+  <div class="scene" id="scene"></div>
 
-<div class="room" id="room"></div>
-<div class="overlay"></div>
+  <div class="neon-red"></div>
+  <div class="neon-purple"></div>
+  <div class="monitor-glow"></div>
+  <div class="depth-overlay"></div>
 
-<div class="glow-red"></div>
-<div class="glow-purple"></div>
+  <div class="content" id="content">
+    <div class="badge">NEXT GENERATION DIGITAL HUB</div>
 
-<div class="content">
-<div class="tag">NEXT GENERATION DIGITAL BRAND</div>
+    <h1><span>POMYX</span><br>UNIVERSE</h1>
 
-<h1>
-<span class="gradient">POMYX</span><br>
-CREATIVE TECH
-</h1>
+    <p>
+      Apps, music, visuals, icon packs and futuristic digital experiences in one premium cyber space.
+    </p>
 
-<p>
-Ultra modern branding, apps, visuals and premium digital experiences built for the future.
-</p>
+    <div class="buttons">
+      <button class="primary">Enter the Hub</button>
+      <button class="secondary">View Projects</button>
+    </div>
+  </div>
 
-<div class="buttons">
-<button class="btn primary">Explore</button>
-<button class="btn secondary">Projects</button>
-</div>
-</div>
-
-<div class="scroll">SCROLL</div>
-
+  <div class="scroll">SCROLL</div>
 </section>
 
 <script>
-const room = document.getElementById("room");
+const scene = document.getElementById("scene");
+const content = document.getElementById("content");
 
-document.addEventListener("mousemove",(e)=>{
-  const x = (e.clientX / window.innerWidth - 0.5) * 20;
-  const y = (e.clientY / window.innerHeight - 0.5) * 20;
+document.addEventListener("mousemove", (e) => {
+  const x = (e.clientX / window.innerWidth - 0.5);
+  const y = (e.clientY / window.innerHeight - 0.5);
 
-  room.style.transform =
-    `scale(1.08) translate(${x}px, ${y}px)`;
+  scene.style.transform = `
+    scale(1.1)
+    translate(${x * 28}px, ${y * 20}px)
+    rotateX(${y * -2}deg)
+    rotateY(${x * 2}deg)
+  `;
+
+  content.style.transform = `
+    translate3d(${x * -18}px, ${y * -12}px, 80px)
+  `;
+});
+
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+  scene.style.filter = `
+    brightness(${0.78 - scrollY / 1800})
+    contrast(1.15)
+    saturate(1.15)
+  `;
 });
 </script>
 
