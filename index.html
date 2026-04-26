@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pomyx - Premium Experience</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html,body{
+  width:100%;
+  height:100%;
+  overflow-x:hidden;
+  font-family:Arial, Helvetica, sans-serif;
+  background:#050505;
+  color:white;
+}
+
+body{
+  background:
+  radial-gradient(circle at 20% 20%, rgba(120,0,255,.15), transparent 30%),
+  radial-gradient(circle at 80% 40%, rgba(255,0,60,.15), transparent 30%),
+  #050505;
+}
+
+/* HERO */
+.hero{
+  position:relative;
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* BACKGROUND IMAGE */
+.room{
+  position:absolute;
+  inset:-40px;
+  background:url("gaming-room.jpg") center center/cover no-repeat;
+  transform:scale(1.08);
+  transition:transform .2s linear;
+  filter:brightness(.72) contrast(1.1) saturate(1.05);
+}
+
+/* DARK OVERLAY */
+.overlay{
+  position:absolute;
+  inset:0;
+  background:
+  linear-gradient(to bottom, rgba(0,0,0,.15), rgba(0,0,0,.72)),
+  radial-gradient(circle at center, transparent 20%, rgba(0,0,0,.55) 90%);
+}
+
+/* RED GLOW */
+.glow-red{
+  position:absolute;
+  width:500px;
+  height:500px;
+  background:rgba(255,0,70,.18);
+  filter:blur(120px);
+  border-radius:50%;
+  left:10%;
+  top:25%;
+  animation:float1 8s ease-in-out infinite;
+}
+
+/* PURPLE GLOW */
+.glow-purple{
+  position:absolute;
+  width:550px;
+  height:550px;
+  background:rgba(80,0,255,.18);
+  filter:blur(120px);
+  border-radius:50%;
+  right:10%;
+  top:20%;
+  animation:float2 10s ease-in-out infinite;
+}
+
+/* CONTENT */
+.content{
+  position:relative;
+  z-index:5;
+  text-align:center;
+  max-width:1100px;
+  padding:20px;
+}
+
+.tag{
+  display:inline-block;
+  padding:10px 18px;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:50px;
+  backdrop-filter:blur(10px);
+  background:rgba(255,255,255,.04);
+  font-size:14px;
+  letter-spacing:2px;
+  margin-bottom:22px;
+}
+
+h1{
+  font-size:clamp(48px,9vw,120px);
+  line-height:1;
+  letter-spacing:-3px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+
+.gradient{
+  background:linear-gradient(90deg,#ffffff,#ff2c55,#7d4dff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+p{
+  margin:24px auto;
+  max-width:720px;
+  font-size:20px;
+  color:rgba(255,255,255,.78);
+  line-height:1.6;
+}
+
+.buttons{
+  margin-top:35px;
+  display:flex;
+  gap:16px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.btn{
+  padding:16px 28px;
+  border:none;
+  border-radius:14px;
+  font-size:16px;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.primary{
+  background:linear-gradient(90deg,#ff2c55,#7d4dff);
+  color:white;
+  box-shadow:0 10px 35px rgba(255,0,80,.35);
+}
+
+.primary:hover{
+  transform:translateY(-3px) scale(1.03);
+}
+
+.secondary{
+  background:rgba(255,255,255,.05);
+  color:white;
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(8px);
+}
+
+.secondary:hover{
+  background:rgba(255,255,255,.09);
+}
+
+/* SCROLL INDICATOR */
+.scroll{
+  position:absolute;
+  bottom:25px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:13px;
+  letter-spacing:2px;
+  color:rgba(255,255,255,.55);
+  z-index:5;
+}
+
+/* ANIMS */
+@keyframes float1{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-30px);}
+}
+
+@keyframes float2{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(25px);}
+}
+
+@media(max-width:768px){
+  p{
+    font-size:16px;
+  }
+
+  .buttons{
+    flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+
+<div class="room" id="room"></div>
+<div class="overlay"></div>
+
+<div class="glow-red"></div>
+<div class="glow-purple"></div>
+
+<div class="content">
+<div class="tag">NEXT GENERATION DIGITAL BRAND</div>
+
+<h1>
+<span class="gradient">POMYX</span><br>
+CREATIVE TECH
+</h1>
+
+<p>
+Ultra modern branding, apps, visuals and premium digital experiences built for the future.
+</p>
+
+<div class="buttons">
+<button class="btn primary">Explore</button>
+<button class="btn secondary">Projects</button>
+</div>
+</div>
+
+<div class="scroll">SCROLL</div>
+
+</section>
+
+<script>
+const room = document.getElementById("room");
+
+document.addEventListener("mousemove",(e)=>{
+  const x = (e.clientX / window.innerWidth - 0.5) * 20;
+  const y = (e.clientY / window.innerHeight - 0.5) * 20;
+
+  room.style.transform =
+    `scale(1.08) translate(${x}px, ${y}px)`;
+});
+</script>
+
+</body>
+</html>
